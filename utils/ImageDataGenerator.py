@@ -9,8 +9,9 @@ The implementation of Data Generator based on keras.
 """
 # from tensorflow.python.keras.preprocessing.image import Iterator
 # from keras.preprocessing.image import Iterator
-from keras_applications import imagenet_utils
-from keras_preprocessing import image as keras_image
+from keras.applications import imagenet_utils
+from keras.preprocessing import image as keras_image
+#from tf.keras.preprocessing import image
 from abc import ABCMeta, abstractmethod
 import tensorflow as tf
 import threading
@@ -61,10 +62,8 @@ def random_crop(image, label, crop_size):
     return cropped_image, cropped_label
 
 
-def random_zoom(image, label, zoom_range):
-    if np.ndim(label) == 2:
-        label = np.expand_dims(label, axis=-1)
-    assert np.ndim(label) == 3
+def random_zoom(image, zoom_range):
+
 
     if np.isscalar(zoom_range):
         zx, zy = np.random.uniform(1 - zoom_range, 1 + zoom_range, 2)
@@ -75,12 +74,11 @@ def random_zoom(image, label, zoom_range):
                          'a tuple or list of two floats. '
                          'Received: %s' % (zoom_range,))
 
-    image = keras_image.apply_affine_transform(
+    image = apply_affine_transform(
         image, zx=zx, zy=zy, fill_mode='nearest')
-    label = keras_image.apply_affine_transform(
-        label, zx=zx, zy=zy, fill_mode='nearest')
 
-    return image, label
+
+    return image
 
 
 def random_brightness(image, label, brightness_range):

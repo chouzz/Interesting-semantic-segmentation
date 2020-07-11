@@ -20,9 +20,10 @@ from config import VGG_Weights_path
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
-    commonUtils.GPUConfig()
+    #commonUtils.GPUConfig()
     dataset_name = 'dataset1'
-    dataset_dir = os.path.abspath('/dataset/dataset1')
+    #dataset_dir = os.path.abspath('/dataset/dataset1')E:\src\dataset\dataset1
+    dataset_dir = os.path.abspath('E:\\src\\dataset\\dataset1')
 
     train_gen = ImageDataGenerator(random_crop=True,
                                    rotation_range=0,
